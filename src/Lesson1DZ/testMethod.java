@@ -16,7 +16,7 @@ public class testMethod {
         System.out.println(Arrays.toString(arr2));
         System.out.println();
 
-        int[] arr3 = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8 ,9, 1};
+        int[] arr3 = {1, 5, 3, 6, 11, 4, 5, 2, 4, 8 ,9, 1};
         papapam3 (arr3);
         System.out.println(Arrays.toString(arr3));
         System.out.println();
@@ -43,6 +43,12 @@ public class testMethod {
         }else {
             System.out.println("Баланс отсутствует");
         }
+        System.out.println();
+
+        int [] arr7 = {1, 2, 3, 4, 5};
+        int smena = 1;
+        System.out.println(Arrays.toString(papapam7(arr7, smena)));
+
 
 //
     }
@@ -65,7 +71,7 @@ public class testMethod {
 
     public static int[] papapam3 (int[] arr3) {
         for (int a = 0; a < arr3.length; a++) {
-            arr3 [a] = arr3 [a] > 6 ? arr3 [a] : arr3[a] *2;
+            arr3 [a] = arr3 [a] >= 6 ? arr3 [a] : arr3[a] *2;
         }
         return arr3;
     }
@@ -105,7 +111,7 @@ public class testMethod {
 
     public static int [][] papapam5 (int [][] arr5) {
         for (int a = 0; a < arr5.length; a++) {
-            for (int b = 0; b < 5; b++) {
+            for (int b = 0; b < arr5.length; b++) {
                 arr5[a][b] = a == b || a + b == 4 ? 1 : 0;
             }
         }
@@ -133,9 +139,28 @@ public class testMethod {
         }
     }
 
+    public static int [] papapam7 (int [] arr7, int a) {
+        for (int i = 0; i < a; i++) {
+            if (a > 0) {
+                int b = arr7[0];
+                for (int j = 0; j < arr7.length -1; j++) {
+                    arr7[j] = arr7[j+1];
+                }
+                arr7[arr7.length -1] = b;
+            }
+        }
+
+        for (int i = 0; i > a; i--) {
+            if ( a < 0) {
+                int b = arr7[arr7.length - 1];
+                for (int j = arr7.length - 1; j > 0; j--) {
+                    arr7[j] = arr7[j-1];
+                }
+                arr7[0] = b;
+            }
+        } return arr7;
 
 
 
-
-
+    }
 }
