@@ -13,10 +13,11 @@ public class krestikiNoliki {
     private static char[][] field;
     private static int fieldSizeX;
     private static int fieldSizeY;
+    private static int [] lastMove = new int[2];
 
-    private static void initFild() {
-        fieldSizeY = 3;
-        fieldSizeX = 3;
+    private static void initField() {
+        fieldSizeY = 5;
+        fieldSizeX = 5;
         field = new char[fieldSizeY][fieldSizeX];
         for (int y = 0; y < fieldSizeY; y++) {
             for (int x = 0; x < fieldSizeX; x++) {
@@ -32,18 +33,21 @@ public class krestikiNoliki {
             }
             System.out.println();
         }
+        System.out.println("-------------");
     }
 
     private static void humanTurn() {
         int x;
         int y;
         do {
-            System.out.println("Ведите координаты хода X и Y от 1 до 3 через пробел >>>");
+            System.out.println("Ведите координаты хода X и Y от 1 до 5 через пробел >>>");
             x = SCANNER.nextInt() - 1;
             y = SCANNER.nextInt() - 1;
         } while (!(x >= 0 && x < fieldSizeX && y >= 0 && x < fieldSizeY) || field[y][x] != DOT_EMPTY);
         field[y][x] = DOT_HUMAN;
-    }
+        lastMove [0] = y;
+        lastMove [1] = x;
+            }
 
     private static void aiTurn() {
         int x;
@@ -52,22 +56,101 @@ public class krestikiNoliki {
             x = RANDOM.nextInt(fieldSizeX);
             y = RANDOM.nextInt(fieldSizeY);
         } while (field[y][x] != DOT_EMPTY);
-        field[y][x] = DOT_HUMAN;
+        field[y][x] = DOT_AI;
+        lastMove [0] = y;
+        lastMove [1] = x;
     }
 
     private static void checkWin() {
+        int x = lastMove[1];
+        int y = lastMove[0];
+
+//        Проверка по горизонтали
+
+        int sum = 0;
+        for (int i = 1; (x - i) >= 0 && field [y][x] == field [y][x-i]; i++) {
+            sum += 1;
+        }
+        if (sum >= 3) {
+            System.out.println("You Win");
+        }
+
+        for (int i = 1; (x + i) <= fieldSizeX -1 && field [y][x] == field [y][x+i]; i++) {
+            sum += 1;
+        }
+        if (sum >= 3) {
+            System.out.println("You Win");
+        }
+
+//        Проверка по вертикали
+
+        sum = 0;
+        for (int i = 1; (y - i) >= 0 && field [y][x] == field [y-i][x]; i++) {
+            sum += 1;
+        }
+        if (sum >= 3) {
+        System.out.println("You Win");
+        }
+
+        for (int i = 1; (y + i) <= fieldSizeX -1 && field [y][x] == field [y+i][x]; i++) {
+            sum += 1;
+            }
+            if (sum >= 3) {
+                System.out.println("You Win");
+            }
+//        Проверака по диагонали вниз
+
+        sum = 0;
+        for (int i = 1; (x - i) >= 0 && (y - i) >= 0 && field [y][x] == field [y-i][x-i]; i++) {
+            sum += 1;
+        }
+        if (sum >= 3) {
+        System.out.println("You Win");
+        }
+
+        for (int i = 1; (x + i) <= fieldSizeX -1 && (y + i) <= fieldSizeY - 1 && field [y][x] == field [y+i][x+i]; i++) {
+            sum += 1;
+            }
+            if (sum >= 3) {
+                System.out.println("You Win");
+            }
+//            Проверка по диагонали вверх
+
+        sum = 0;
+        for (int i = 1; (x - i) >= 0 && (y + i) <= fieldSizeY - 1 && field [y][x] == field [y+i][x-i]; i++) {
+            sum += 1;
+        }
+        if (sum >= 3) {
+            System.out.println("You Win");
+        }
+        for (int i = 1; (x + i) <= fieldSizeX -1 && (y - i) >= 0 && field [y][x] == field [y-i][x+i]; i++) {
+            sum += 1;
+        }
+        if (sum >= 3) {
+            System.out.println("You Win");
+        }
+    }
+
+    private static void printWin (String printWin) {
 
     }
 
-    public static void main(String[] args) {
-        initFild();
+    private static void endGame() {
+
+    }
+
+    public static void main (String[] args) {
+        initField();
         printField();
         while (true) {
             humanTurn();
             printField();
+            checkWin();
             aiTurn();
             printField();
+            checkWin();
         }
+//        endGame();
 
 
 
