@@ -15,9 +15,8 @@ public class Dz {
         double b = 0;
         double c = 0;
         for (int i = 0; i < employees.length; i++) {
-            System.out.print("Имя " + employees[i].getName() + " возраст " + employees[i].getAge());
-            int a = (employees[i].getAge() > 45) ? employees[i].getSalary() + 5000 : employees[i].getSalary();
-            employees[i].setSalary(a);
+            System.out.print(employees[i]);
+            if (employees[i].getAge() > 45) employees[i].setSalary(employees[i].getSalary()+5000);
             System.out.println(" ЗПешка " + employees[i].getSalary());
             b += employees[i].getSalary() / employees.length;
             c += employees[i].getAge() / employees.length;
